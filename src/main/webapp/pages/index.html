@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+
+    <link rel="stylesheet" href="../js/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../js/lib/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+
+    <script>
+        function getContextPath(index){
+            switch (index){
+                case 1: return '..'
+                case 2: return '../pages'
+            }
+        }
+    </script>
+</head>
+<body ng-controller="StorageController as ctrl" ng-cloak>
+
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings">
+                <md-icon md-font-icon="fa fa-bars"></md-icon>
+            </md-button>
+            <h2>
+                <span>App</span>
+            </h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+
+    <div layout="row">
+        <div flex="10"></div>
+        <div flex md-colors="{background: 'primary'}">
+            <ui-view></ui-view>
+        </div>
+        <div flex="10"></div>
+    </div>
+
+
+    <script src="../js/lib/angular/angular.js"></script>
+    <script src="../js/lib/angular-ui-router/angular-ui-router.js"></script>
+    <script src="../js/lib/angular-aria/angular-aria.js"></script>
+    <script src="../js/lib/angular-animate/angular-animate.js"></script>
+    <script src="../js/lib/angular-material/angular-material.js"></script>
+    <script src="../js/lib/ngstorage/ngStorage.min.js"></script>
+    <script src="../js/lib/jquery/jquery.min.js"></script>
+
+    <script src="../js/src/util/util.js"></script>
+
+    <script src="../js/src/application.js"></script>
+
+    <script src="../js/src/todo/todo.js"></script>
+
+</body>
+</html>
