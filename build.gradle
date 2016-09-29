@@ -1,18 +1,6 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "gradle.plugin.com.craigburke.gradle:client-dependencies:1.1.3"
-    }
-}
-
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'com.craigburke.client-dependencies'
 
 group 'todo'
 version '1.0-SNAPSHOT'
@@ -21,7 +9,11 @@ repositories {
     jcenter()
 }
 
-ext['springVersion'] = "4.2.3.RELEASE"
+ext {
+    npmCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'npm.cmd' : 'npm'
+    bowerCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'bower.cmd' : 'bower'
+    springVersion = "4.2.3.RELEASE"
+}
 
 dependencies {
     compile 'org.springframework:spring-core:' + springVersion
@@ -48,27 +40,40 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-clientDependencies {
-    installDir = 'src/main/webapp/js/lib'
-    useGlobalCache = true
-    checkDownloads = true
-    threadPoolSize = 10
-    //fileExtensions = ['js', 'css', 'ts'] // <1>
-    //releaseFolders = ['release', 'dist', 'lib'] // <2>
-    //copyIncludes = ['**', '**/**.min.js'] // <3>
-    copyExcludes = ['**/*.txt', '**/*.md'] // <4>
-    bower {
-        'ngstorage'('','ngstorage')
+
+
+import org.gradle.api.tasks.Exec
+import org.apache.tools.ant.taskdefs.condition.Os
+
+
+defaultTasks 'bower'
+
+// Get the path for the locally installed binaries
+task npmBin << {
+    new ByteArrayOutputStream().withStream { os ->
+        exec {
+            executable = npmCommand
+            args = ['bin']
+            standardOutput = os
+        }
+        println(os)
+        ext.binPath = os.toString().trim() + File.separator
     }
-    npm {
-        'jquery'('2.2.0', into: 'jquery')
-        'angular'('1.5.6', into: 'angular')
-        'angular-material'('', into: 'angular-material')
-        'angular-ui-router'('', into: 'angular-ui-router')
-        'font-awesome'('', into: 'font-awesome')
-        //'electron'('1.3.1', into: 'electron')
-//        'youtube-dl'('', into: 'youtube-dl')
-//        'ng-storage'('0.3.6', into: 'ng-storage')
-//        'pug'('', into: 'pug')
-    }
+}
+
+
+// Install packages from package.json
+task npm(type: Exec) {
+    description = "Grab NodeJS dependencies (from package.json)"
+    commandLine = [npmCommand, "install"]
+    inputs.file "package.json"
+    outputs.dir "node_modules"
+
+    tasks.npmBin.execute()
+}
+
+
+// Install the bower components for front-end library management
+task bower(dependsOn: 'npm', type: Exec){
+    commandLine "${npmBin.binPath}${bowerCommand}", 'install'
 }

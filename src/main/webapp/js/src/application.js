@@ -29,7 +29,7 @@ function ApplicationConfiguration($mdThemingProvider, $urlRouterProvider, $httpP
 
 function StorageController($scope, $localStorage) {
 
-    if($localStorage.todos == null || $localStorage.todos.length == 0){
+   /* if($localStorage.todos == null || $localStorage.todos.length == 0){
         $localStorage.todos = [];
         $localStorage.todos.push({
             id:nextId($localStorage.todos),
@@ -49,79 +49,7 @@ function StorageController($scope, $localStorage) {
             message: "Message",
             date: new Date()
         })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
-        $localStorage.todos.push({
-            id:nextId($localStorage.todos),
-            title: "title 1",
-            message: "Message",
-            date: new Date()
-        })
 
-    }
+    }*/
 
 }

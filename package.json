@@ -1,0 +1,11 @@
+{
+  "name": "todo",
+  "version": "0.0.1",
+  "dependencies": {
+      "jquery": "2.2.0",
+      "angular": "1.5.6",
+      "angular-material": "",
+      "angular-ui-router": "",
+      "font-awesome": ""
+  }
+}
