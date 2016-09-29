@@ -1,4 +1,28 @@
-// Apply the java plugin to add support for Java
+buildscript {
+    repositories {
+        maven {
+            url uri('F:/HOME - PROJECTS/Modules/clientDepencences/build/repo')
+        }
+    }
+    dependencies {
+        classpath 'com.clientDependences:clientDependencesPlugin:1.2'
+    }
+}
+
+
+apply plugin: 'code4reference'
+
+c4rArgs {
+    sender = 'Rakesh'
+    message = 'Hello there !!!!'
+
+    nestedArgs{
+        receiver = "gradleAdmin"
+        email = "gradleAdmin@code4reference.com"
+    }
+}
+
+
 apply plugin: 'java'
 apply plugin: 'war'
 
@@ -9,71 +33,8 @@ repositories {
     jcenter()
 }
 
-ext {
-    npmCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'npm.cmd' : 'npm'
-    bowerCommand = Os.isFamily(Os.FAMILY_WINDOWS) ? 'bower.cmd' : 'bower'
-    springVersion = "4.2.3.RELEASE"
-}
-
-dependencies {
-    compile 'org.springframework:spring-core:' + springVersion
-    compile 'org.springframework:spring-context:' + springVersion
-    compile 'org.springframework:spring-context-support:' + springVersion
-    compile 'org.springframework:spring-web:' + springVersion
-    compile 'org.springframework:spring-webmvc:' + springVersion
-
-    compile 'com.fasterxml.jackson.core:jackson-core:2.6.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.0'
-
-    //Logging
-    compile 'log4j:log4j:1.2.17'
-    compile 'org.slf4j:slf4j-api:1.7.21'
-    compile 'commons-logging:commons-logging:1.2'
-
-    //Server
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-    compile 'jstl:jstl:1.2'
-
-    //Test
-    testCompile 'org.springframework:spring-test:' + springVersion
-    testCompile 'junit:junit:4.12'
-}
-
-
-
-import org.gradle.api.tasks.Exec
-import org.apache.tools.ant.taskdefs.condition.Os
-
-
-defaultTasks 'bower'
-
-// Get the path for the locally installed binaries
-task npmBin << {
-    new ByteArrayOutputStream().withStream { os ->
-        exec {
-            executable = npmCommand
-            args = ['bin']
-            standardOutput = os
-        }
-        println(os)
-        ext.binPath = os.toString().trim() + File.separator
-    }
-}
-
-
-// Install packages from package.json
-task npm(type: Exec) {
-    description = "Grab NodeJS dependencies (from package.json)"
-    commandLine = [npmCommand, "install"]
-    inputs.file "package.json"
-    outputs.dir "node_modules"
-
-    tasks.npmBin.execute()
-}
-
-
-// Install the bower components for front-end library management
-task bower(dependsOn: 'npm', type: Exec){
-    commandLine "${npmBin.binPath}${bowerCommand}", 'install'
-}
+/*clientDependences {
+    cashePath = ""
+    packagePath = ""
+    destinationPath = ""
+}*/
