@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         maven {
-            url uri('F:/HOME - PROJECTS/Modules/clientDepencences/build/repo')
+            url uri('../clientDependences/build/repo')
         }
     }
     dependencies {
