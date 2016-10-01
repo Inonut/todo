@@ -8,7 +8,7 @@ let win
 
 function createWindow () {
     win = new BrowserWindow({width: 1200, height: 900})
-    win.loadURL(`file://${__dirname}/index.html`)
+    win.loadURL(`file://${__dirname}/../src/main/webapp/pages/index.html`)
     win.webContents.openDevTools()
     win.on('closed', () => {
         win = null

@@ -1,28 +1,30 @@
-buildscript {
-    repositories {
-        maven {
-            url uri('../clientDependences/build/repo')
-        }
-    }
-    dependencies {
-        classpath 'com.clientDependences:clientDependencesPlugin:1.2'
-    }
+plugins {
+    id "com.craigburke.client-dependencies" version "1.2.0"
 }
 
-
-apply plugin: 'clientDependences'
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'com.craigburke.client-dependencies'
 
 group 'todo'
-version '1.0-SNAPSHOT'
+version '1.0'
 
-repositories {
-    jcenter()
-}
+clientDependencies {
+    installDir = 'src/main/webapp/js/lib'
+    useGlobalCache = true
+    checkDownloads = true
+    threadPoolSize = 10
+    //fileExtensions = ['js', 'css', 'ts'] // <1>
+    //releaseFolders = ['release', 'dist', 'lib'] // <2>
+    //copyIncludes = ['**', '**/**.min.js'] // <3>
+    copyExcludes = ['**/*.txt', '**/*.md'] // <4>
 
-clientDependences {
-    cashePath = "1"
-    packagePath = "2"
-    destinationPath = "3"
+    npm {
+        'jquery'('2.2.0', into: 'jquery')
+        'angular'('1.5.6', into: 'angular')
+        'angular-material'('', into: 'angular-material')
+        'angular-ui-router'('', into: 'angular-ui-router')
+        'font-awesome'('', into: 'font-awesome')
+        'ngstorage'('','ngstorage')
+    }
 }

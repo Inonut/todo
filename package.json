@@ -1,15 +1,25 @@
 {
   "name": "todo",
   "version": "0.0.1",
+  "description": "Simple TODO application built with Electron and AngularJS.",
+  "author": "Dragos",
+  "main": "./config/main.js",
   "scripts": {
+    "dist": "build  --x64 --win --dir"
   },
-  "dependencies": {
-    "jquery": "2.2.0",
-    "angular": "1.5.6",
-    "angular-material": "",
-    "angular-ui-router": "",
-    "font-awesome": "",
-    "bower": "",
-    "ngstorage": ""
+  "devDependencies": {
+    "copyfiles": "~1.0.0",
+    "electron-builder": "5.12.X",
+    "electron-prebuilt": "~1.2.X",
+    "mkdirp": "~0.5.1",
+    "npm-run-all": "~2.3.0",
+    "rimraf": "~2.5.3"
+  },
+  "build": {
+    "appId": "appId",
+    "app-category-type": "appCateg",
+    "win": {
+      "iconUrl": "http://eatodo.s3.amazonaws.com/icon.ico"
+    }
   }
 }
