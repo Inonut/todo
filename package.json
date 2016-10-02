@@ -5,6 +5,7 @@
   "author": "Dragos",
   "main": "./config/main.js",
   "scripts": {
+    "electron": "electron .",
     "dist": "build  --x64 --win --dir"
   },
   "devDependencies": {
@@ -16,10 +17,7 @@
     "rimraf": "~2.5.3"
   },
   "build": {
-    "appId": "appId",
-    "app-category-type": "appCateg",
-    "win": {
-      "iconUrl": "http://eatodo.s3.amazonaws.com/icon.ico"
-    }
+    "appId": "your.id",
+    "app-category-type": "your.app.category.type"
   }
 }

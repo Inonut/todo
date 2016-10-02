@@ -7,10 +7,16 @@
             <h3>{{ todo.title }}</h3>
             <p>{{ todo.date | date: "medium" }}</p>
         </div>
-        <md-button class="md-fab md-mini" aria-label="Eat cake" ng-click="deleteTodo(todo)">
+        <md-button class="md-fab md-mini" ng-click="deleteTodo(todo)">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
         </md-button>
         <md-divider ></md-divider>
     </md-list-item>
-    <md-button class="md-raised btn-defaul" style="float: right" ng-click="addTodo()"> Add </md-button>
 </md-list>
+
+<div layout="row" layout-align="space-between center" class="md-padding">
+    <!--<div layout="column" flex ng-include="'todo/todo-filter.html'"></div>-->
+    <div layout="column">
+        <md-button class="md-raised btn-defaul md-mini" ng-click="addTodo()">Add</md-button>
+    </div>
+</div>

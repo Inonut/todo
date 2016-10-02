@@ -33,13 +33,15 @@ function TodosController($scope, $state, todosService) {
     });
 
     $scope.addTodo = function () {
-        todosService.addOne().then(function (id) {
-            $state.go('todoEdit', {id: id});
-        });
+        $state.go('todoEdit', {id: -1});
     };
 
     $scope.deleteTodo = function (todo) {
-        todosService.deleteOne(todo.id);
+        todosService.deleteOne(todo.id).then(function(data){
+            todosService.saveAll(data).then(function (todos) {
+                $scope.todos = todos;
+            });
+        });
     };
 
     $scope.openTodo = function (todo) {
@@ -51,58 +53,11 @@ function TodoEditController($scope, $stateParams, todosService) {
     todosService.findOne($stateParams.id).then(function (todo) {
         $scope.todo = todo;
     });
-}
-
-function TodosService($q, $localStorage) {
-    return {
-        findAll: function () {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    resolve($localStorage.todos);
-                }, 10);
-            });
-        },
-        deleteOne: function (id) {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    for(var i = 0; i< $localStorage.todos.length; i++){
-                        if($localStorage.todos[i] != null && $localStorage.todos[i].id == id){
-                            $localStorage.todos.splice(i, 1);
-                            break;
-                        }
-                    }
-                }, 10);
-            });
-        },
-        addOne: function () {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    var id = nextId($localStorage.todos);
-                    $localStorage.todos.push({
-                        id:id,
-                        title: null,
-                        message: null,
-                        date: null
-                    })
-
-                    resolve(id);
-                }, 10);
-            });
-        },
-        findOne: function (id) {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    for(var i = 0; i< $localStorage.todos.length; i++){
-                        if($localStorage.todos[i] != null && $localStorage.todos[i].id == id){
-                            if($localStorage.todos[i].date != null){
-                                $localStorage.todos[i].date = new Date($localStorage.todos[i].date);
-                            }
-                            resolve($localStorage.todos[i]);
-                            break;
-                        }
-                    }
-                }, 10);
-            });
-        }
-    };
+    
+    $scope.saveTodo = function (todo) {
+        todosService.addOne(todo).then(function (data, newtodo) {
+            $scope.todo = newtodo;
+            todosService.saveAll(data)
+        });
+    }
 }

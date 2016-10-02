@@ -5,6 +5,7 @@
 (function () {
     angular.module('myApp',['ngMaterial', 'ui.router', 'ngStorage', 'app.todo'])
         .config(["$mdThemingProvider", "$urlRouterProvider", "$httpProvider", ApplicationConfiguration])
+        .controller('StorageController', ['$scope', '$localStorage', StorageController])
     ;
 })();
 
@@ -24,4 +25,12 @@ function ApplicationConfiguration($mdThemingProvider, $urlRouterProvider, $httpP
         });
 
     $urlRouterProvider.otherwise('/todos');
+}
+
+function StorageController($scope, $localStorage) {
+
+    if($localStorage.todos == null || $localStorage.todos.length == 0){
+        $localStorage.todos = [];
+    }
+
 }
